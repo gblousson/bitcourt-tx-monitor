@@ -28,15 +28,15 @@ console.log(proceso.ultimoBloque)
 client.getBlockCountAsync().spread(function(blockCount) {
 	Promise.all(_.range(proceso.ultimoBloque, blockCount-confirmaciones+1)).map(function(blockIndex) {
 		return client.getBlockHashAsync(blockIndex);
-	}).map(function(blockHash) {
+	}, { concurrency: 1 }).map(function(blockHash) {
 		return client.getBlockAsync(blockHash[0]);
-	}).map(function(block) {
+	}, { concurrency: 1 }).map(function(block) {
 		return block[0].tx;
 	}).then(_.flatten).map(function(txHash) {
 		return client.getRawTransactionAsync(txHash);
-	}).map(function(rawtx) {
+	}, { concurrency: 1 }).map(function(rawtx) {
 		return client.decodeRawTransactionAsync(rawtx[0]);
-	}).map(function(decodedtx) {
+	}, { concurrency: 1 }).map(function(decodedtx) {
 		return decodedtx[0].vout;
 	}).then(_.flatten).map(function(vout) {
 		console.log("Salida: "+vout.value+" -> "+vout.scriptPubKey.addresses);
