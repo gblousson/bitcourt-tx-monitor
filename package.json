@@ -1,0 +1,12 @@
+{
+  "name": "bitcourt-tx-monitor",
+  "version": "0.0.1",
+  "description": "Bitcoin tx monitor for BitCourt",
+  "author": "GB",
+  "dependencies": {
+    "bitcore": "^0.11.7",
+    "bluebird": "^2.9.25",
+    "lodash": "^3.7.0"
+  }
+}
+  
